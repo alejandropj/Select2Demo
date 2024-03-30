@@ -1,0 +1,70 @@
+﻿@model List<string>
+
+<div class="container pt-5 mt-sm-2 mt-lg-5 col-xl-8 col-md-10 col-sm-12 bg-body
+rounded-3 bg-opacity-10 box-shadow minh-50">
+    <div class="row">
+        <form method="post">
+            <div class="container">
+                <h1 class="text-center text-body">Select Simple</h1>
+
+                <div class="row px-5 py-3">
+                    <div class="col-sm-12">
+                        <div class="mb-4 align-items-center text-center">
+                            <label class="form-label d-block" for="formNumber">Selecciona un Color</label>
+
+                            <select name="color" id="selectColors" class="form-select form-select-lg text-center w-100">
+                                @foreach (string color in Model)
+                                {
+                                    <option value="@color">@color</option>
+                                }
+                            </select>
+                            <button class="btn btn-dark mt-3">Enviar</button>
+
+                            <h4 class="text-center text-black-50 mt-5" id="valorSeleccionado"></h4>
+
+                            @if(ViewData["RESULTS"]!=null){
+                                <h4 class="text-center text-black-75 mt-2" >Valor enviado al controller: @ViewData["RESULTS"]</h4>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+@*  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> 
+    <script src="~/js/es.js"></script>
+*@
+
+    <script>
+        $(document).ready(function () {
+            $('#selectColors').select2({
+                language: 'es',
+                dropdownAutoWidth: true,
+                selectOnClose: true
+            });
+            $('#selectColors').on('change', function () {
+                var selectedValue = $(this).val();
+                $('#valorSeleccionado').text('Actualizado en tiempo real por jQuery: ' + selectedValue);
+            });
+        });
+    </script>
+}
+@* 
+            $('#selectColors').select2({
+                language: {
+
+                    noResults: function () {
+
+                        return "No hay resultado";
+                    },
+                    searching: function () {
+
+                        return "Buscando..";
+                    }
+                }
+            }); *@

@@ -1,0 +1,155 @@
+﻿@model List<string>
+
+<div class="container pt-5 mt-sm-2 mt-lg-5 col-xl-8 col-md-10 col-sm-12 bg-body
+rounded-3 bg-opacity-10 box-shadow minh-50">
+    <div class="row">
+        <form method="post">
+            <div class="container">
+                <h1 class="text-center text-body">Select Styling</h1>
+
+                <div class="row px-5 py-3">
+                    <div class="col-sm-12">
+                        <div class="mb-4 align-items-center text-center">
+                            <label class="form-label d-block" for="formNumber">Selecciona un Color</label>
+
+                            <select name="color" id="selectColors" class="form-select form-select-lg text-center w-100">
+                                @foreach (string color in Model)
+                                {
+                                    <option value="@color">@color</option>
+                                }
+                            </select>
+                            <button class="btn btn-dark mt-3">Enviar</button>
+
+                            <h4 class="text-center text-black-50 mt-5" id="valorSeleccionado"></h4>
+
+                            @if (ViewData["RESULTS"] != null)
+                            {
+                                <h4 class="text-center text-black-75 mt-2">Valor enviado al controller: @ViewData["RESULTS"]</h4>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+@*  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="~/js/es.js"></script>
+*@
+
+    <script>
+        $(document).ready(function () {
+            $('#selectColors').select2({
+                language: 'es',
+                dropdownAutoWidth: true,
+                selectOnClose: true
+            });
+            $('#selectColors').on('change', function () {
+                var selectedValue = $(this).val();
+                $('#valorSeleccionado').text('Actualizado en tiempo real por jQuery: ' + selectedValue);
+            });
+        });
+    </script>
+}
+
+<style>
+
+    /* SELECT BOX DESIGN */
+    .select2-container .select2-selection--single {
+        height: 36px;
+        box-shadow: 2px 15px 18px -18px rgba(0,0,0,0.75) !important;
+        border-bottom: 1px solid black !important;
+    }
+
+    /* SELECT TEXT DESIGN */
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        line-height: 28px;
+        font-size: 18px;
+        text-align: center;
+    }
+
+    /* SELECT ARROW DESIGN */
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+        position: absolute;
+        top: 1px;
+        width: 16px;
+        height: 36px;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__arrow b {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        margin-top: -2px;
+        margin-left: -8px;
+        border-width: 5px 4px 0 4px;
+        border-style: solid;
+    }
+
+    .select2-container--default .select2-results__option--highlighted[aria-selected] {
+        color: #fff !important;
+    }
+
+    .select2-selection--single, .select2-selection {
+        border: 1px solid #ffffff1f !important;
+        border-radius: 5px !important;
+        -webkit-box-shadow: none !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+        border-radius: 5px;
+    }
+    /* DROPDOWN */
+    .select2-dropdown {
+        position: absolute;
+        z-index: 1051;
+        left: 1px;
+        display: block;
+        box-sizing: border-box;
+        width: 100%;
+        border: 1px solid #aaa;
+        padding: 4px;
+        font-size: 16px;
+    }
+
+    /* DROPDOWN SPACING */
+    .select2-dropdown, .autocomplete-suggestions {
+        border: none !important;
+        border: 1px solid darkgray !important;
+        margin-top: 5px;
+        border-radius: 8px !important;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+
+    /* OPTIONS */
+    .select2-results ul li {
+        padding-top: 4px;
+        padding-bottom: 4px;
+        color: #fff !important;
+    }
+
+    /* OPTION SELECTED */
+    .select2-results__option--selected {
+        background-color: #888888 !important;
+    }
+
+    /* OPTION NOT SELECTED */
+    .select2-results__option {
+        padding: 8px;
+        -webkit-user-select: none;
+        user-select: none;
+        background-color: #aaa !important;
+        margin: 8px;
+        border-radius: 7px;
+    }
+
+    /* CURSOR HIGHLIGHTED OPTION */
+    .select2-results__option--highlighted {
+        background: #2D2D2D !important;
+    }
+</style>
